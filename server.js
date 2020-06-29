@@ -6,8 +6,10 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express')
 const app = express()
 const espressLayouts = require('express-ejs-layouts')
+//import Routes
 const indexRouter = require('./routes/index')
-const authorRouter = require('./routes/author')
+const authorRouter = require('./routes/authors')
+const bookRouter = require('./routes/books')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 
@@ -30,6 +32,7 @@ app.use(bodyParser.urlencoded({ limit: '10mb', extended: false}))
 
 app.use('/', indexRouter)
 app.use('/authors', authorRouter)
+app.use('/books', bookRouter)
 
 
 
