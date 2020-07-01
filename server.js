@@ -2,7 +2,6 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
 }
 
-
 const express = require('express')
 const app = express()
 const espressLayouts = require('express-ejs-layouts')
@@ -12,7 +11,16 @@ const authorRouter = require('./routes/authors')
 const bookRouter = require('./routes/books')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-
+const multer = require('multer')
+const path = require('path')
+const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
+const uploadPath = path.join('public', Book.coverImageBasePath)
+const upload = multer({
+    dest: uploadPath,
+    fileFilter: (req, file, callback) => {
+        callback(null, imageMimeTypes.inclues(file.mimetype))
+    }
+})
 //Configuração(view)
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
