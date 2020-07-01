@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Author = require('../models/author')
 
+// /author, é possivel pesquisar os authores ja criados,
 router.get('/', async (req,res) =>{
     let searchOptions = {}
         if (req.query.name != null && req.query.name != ''){
@@ -17,11 +18,11 @@ router.get('/', async (req,res) =>{
         res.redirect('/')
     }    
 })
-
+// pagina de criar authores novos
 router.get('/new', (req,res)=>{
     res.render('authors/new.ejs', {author: new Author()})
 })
-
+// rota que lida com o armazenamento dos dados do form que tem em /new(new.ejs)
 router.post('/', async (req,res)=>{
     const author = new Author({
         name: req.body.name 

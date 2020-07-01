@@ -11,17 +11,8 @@ const authorRouter = require('./routes/authors')
 const bookRouter = require('./routes/books')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const multer = require('multer')
-const path = require('path')
-const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
-const uploadPath = path.join('public', Book.coverImageBasePath)
-const upload = multer({
-    dest: uploadPath,
-    fileFilter: (req, file, callback) => {
-        callback(null, imageMimeTypes.inclues(file.mimetype))
-    }
-})
-//Configuração(view)
+
+//Configuração(view engine, e views)
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
