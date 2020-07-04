@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Book = require('../models/books')
+const Book = require('../models/book')
 const Author = require('../models/author')
 const multer = require('multer')
 const path = require('path')
