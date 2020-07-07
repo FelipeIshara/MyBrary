@@ -54,6 +54,15 @@ router.post('/', async (req,res)=>{
     }
 })
 
+router.get('/:id', async (req, res)=>{
+    try {
+        const book = await Book.findById(req.params.id).populate('author').exec()
+        res.render('books/show', {book: book})
+    } catch {
+        res.redirect('/')
+    }
+})
+
 
 async function renderNewPage(res, book, hasError = false) {
     try {
@@ -65,6 +74,22 @@ async function renderNewPage(res, book, hasError = false) {
         // caso tiver ira ativar o errorMessage do partials, 
         if (hasError) params.errorMessage = 'Error Creating Book'
         res.render('books/new', params)
+    } catch {
+        res.redirect('/books')
+    }
+  
+}
+
+async function renderFormPage(res, book, form, hasError = false) {
+    try {
+        const authors = await Author.find({})
+        const params =  {
+            authors: authors,
+            book: book
+        }
+        // caso tiver ira ativar o errorMessage do partials, 
+        if (hasError) params.errorMessage = 'Error Creating Book'
+        res.render(`books/${form}`, params)
     } catch {
         res.redirect('/books')
     }
